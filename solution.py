@@ -12,6 +12,8 @@ def solution(p: float, x: np.array) -> tuple:
     # Не меняйте название функции и её аргументы
     from scipy.stats import chi2
     alpha = 1 - p
-    k = len(x)
-    return sum(x ** 2) / (chi2.ppf(1 - alpha / 2, k) * np.sqrt(27)), \
-           sum(x ** 2) / (chi2.ppf(alpha / 2, k) * np.sqrt(27))
+    n = len(x)
+    s = 1/n * sum((x - x.mean())**2)
+
+    return n * s / (27 * chi2.ppf(1 - alpha / 2, n)), \
+           n * s / (27 * chi2.ppf(alpha / 2, n))
